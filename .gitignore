@@ -23,6 +23,7 @@ doc/
 .idea
 .ruby-gemset
 config/database.yml
+config/shards.yml
 db/schema.rb
 .DS_Store
 .rvmrc
