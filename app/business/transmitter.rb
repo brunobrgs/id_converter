@@ -38,8 +38,6 @@ class Transmitter
 
         add(old_id, new_record.id)
       end
-
-      records = []
     end while records.size > 0
   end
 
