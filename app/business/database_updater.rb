@@ -87,7 +87,7 @@ class DatabaseUpdater
       TicketSubType, Ticket, Tour, TourAssociate, TourStep, TransferTitle,
       TransferTitleItem, Address, ProcessManager, Archive, ProcessFlow,
       StockProductChosen, StockProductChosenItem, TicketFlow, LineConsumption,
-      Call, Comment, ImportCall
+      ImportCall, Call, Comment
     ]
   end
 
