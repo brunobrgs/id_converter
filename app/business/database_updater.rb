@@ -1,6 +1,9 @@
 class DatabaseUpdater
-  def initialize(database = 'facieg')
+  def initialize(database = 'facieg', options = {})
     @database = database
+
+    @model_list = options.delete(:models)
+    @initial_id = options.delete(:initial_id) || 0
   end
 
   # DatabaseUpdater.start
@@ -30,14 +33,18 @@ class DatabaseUpdater
   def copy
     timer = {}
 
-    models.each do |model|
+    unless @model_list
+      @model_list = models
+    end
+
+    @model_list.each do |model|
       puts "#{model}"
 
       timer[model] = Time.current
 
       group = models_group.key(model)
 
-      Transmitter.start(model, group, @database)
+      Transmitter.start(model, group, @database, initial_id: @initial_id)
 
       timer[model] = TimeDifference.between(
         timer[model],

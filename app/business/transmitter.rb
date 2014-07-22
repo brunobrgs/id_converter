@@ -1,9 +1,11 @@
 class Transmitter
-  def initialize(model, group, database)
+  def initialize(model, group, database, options = {})
     @model = model
     @group = group
     @database = database
     @table_name = model.table_name
+
+    @initial_id = options.delete(:initial_id) || 0
     model.connection
   end
 
@@ -13,7 +15,7 @@ class Transmitter
   end
 
   def start
-    last_id = 0
+    last_id = initial_id
 
     begin
       records = model.using(:source).order('id').limit(1000).where('id > ?', last_id)
@@ -61,7 +63,7 @@ class Transmitter
 
   private
 
-  attr_reader :model, :table_name, :group, :database
+  attr_reader :model, :table_name, :group, :database, :initial_id
 
   def record_exist_on_destiny?(attributes)
     model.using(:destiny).find_by(attributes)
