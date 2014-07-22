@@ -1,4 +1,8 @@
 class DatabaseUpdater
+  def initialize(database = 'facieg')
+    @database = database
+  end
+
   # DatabaseUpdater.start
   def self.start
     new.start
@@ -18,9 +22,9 @@ class DatabaseUpdater
     puts "#{created_tables} tabelas criadas"
   end
 
-  # DatabaseUpdater.copy
-  def self.copy
-    new.copy
+  # DatabaseUpdater.copy('facieg')
+  def self.copy(*attr)
+    new(*attr).copy
   end
 
   def copy
@@ -31,7 +35,9 @@ class DatabaseUpdater
 
       timer[model] = Time.current
 
-      Transmitter.start(model)
+      group = models_group.key(model)
+
+      Transmitter.start(model, group, @database)
 
       timer[model] = TimeDifference.between(
         timer[model],
@@ -42,6 +48,8 @@ class DatabaseUpdater
     timer.each do |model, time|
       puts "#{model}: #{time} min"
     end
+
+    puts timer
 
     puts "TOTAL: #{timer.values.sum} min"
   end
@@ -57,6 +65,49 @@ class DatabaseUpdater
     models.each do |model|
       Transmitter.n_to_n(model)
     end
+  end
+
+  # DatabaseUpdater.models_group
+  def self.models_group(*attr)
+    new(*attr).models_group
+  end
+
+  def models_group
+    {
+      one_time: [
+        Country, State, City, Manager, Operator, ProductFabricator, ProductModel,
+        Tariff, StockOperation, RequestType, Color, ProductLevel, Negotiation, Sell,
+        ProcessType, ProcessStep, ProcessStepResponsible, TicketContactType,
+        BillAdditionType, BillDiscountType, AssociateCancel, AssociateUserLine, Block,
+        ChipMaintenanceType, ChipMaintenance, Contact, DistributorTarget, LineCancellation,
+        LineCancellationItem, NegotiationInternet, NegotiationProduct, NegotiationService,
+        NumberShift, OperationControl, OperationControlService, PackagePrice, Permit,
+        PlanShift, ProcessStepAction, ProductMatrix, RemoteRequest, Role, SellInternetItem,
+        SellPlanItem, SellPlanItemService, ServiceOperation, ServiceOperationItem,
+        ServiceTariff, Sms, StockAdjust, StockAdjustEntry, StockAdjustOutput,
+        StockMovement, StockMovementItem, ReservedProduct, ReservedProductItem,
+        TariffMasterPrice, TariffOperator, TariffOperatorPrice, TicketType,
+        TicketSubType, Tour, TourAssociate, TourStep, TransferTitle, TransferTitleItem,
+        ProcessManager, Archive, ProcessFlow, StockProductChosen, StockProductChosenItem
+      ],
+
+      checking: [
+        Partner, Group, User, Address
+      ],
+
+      force_copy: [
+        Brand, Distributor, Domain, MasterOperatorContract, MasterManagerContract,
+        MasterDistributorContract, CommercialTable, Plan, PlanTariff, DistributorPlan,
+        FacilityPackage, OperatorAccount, Number, Request, RequestItem, Service,
+        InternetPlan, Invoice, InvoiceItem, StockProduct, BillPeriod, Associate,
+        AssociateLine, AssociateLinePlan, AssociateLineService, ComodatoMovement,
+        Comodato, AssociateBill, LineBill, Bill, ServiceBill, Repayment,
+        FranchiseMovement, DistributorConfiguration, BillAddition, BillAdditionItem,
+        BillDiscount, BillDiscountItem, AssociateUser, LineGroup, DistributorInternetPlan,
+        DistributorService, Ticket, TicketFlow, Comment, LineConsumption,
+        ImportCall, Call
+      ]
+    }
   end
 
   private
@@ -98,6 +149,7 @@ class DatabaseUpdater
         id serial NOT NULL,
         old_id integer NOT NULL,
         new_id integer NOT NULL,
+        database varchar(255) NOT NULL,
         CONSTRAINT #{table_name}_pkey PRIMARY KEY (id)
       )
       WITH (
@@ -115,6 +167,11 @@ class DatabaseUpdater
         ON #{table_name}
         USING btree
         (new_id);
+
+      CREATE INDEX index_#{table_name}_database
+        ON #{table_name}
+        USING btree
+        (database);
     SQL
   end
 end

@@ -1,6 +1,8 @@
 class Transmitter
-  def initialize(model)
+  def initialize(model, group, database)
     @model = model
+    @group = group
+    @database = database
     @table_name = model.table_name
     model.connection
   end
@@ -14,8 +16,6 @@ class Transmitter
     last_id = 0
 
     begin
-      return if model.using(:source).count == model.count
-
       records = model.using(:source).order('id').limit(1000).where('id > ?', last_id)
 
       break if records.size == 0
@@ -23,18 +23,18 @@ class Transmitter
       last_id = records.last.id
 
       records.to_a.each do |source_record|
-        next if model.unscoped.find_by(old_id: source_record.id)
-
         attributes = source_record.attributes
         old_id = attributes.delete('id')
 
-        new_record = model.using(:destiny).create!(
-          if model == ImportCall
-            attributes
-          else
-            configure_attributes(attributes, source_record)
-          end
-        )
+        if model != ImportCall
+          attributes = configure_attributes(attributes, source_record)
+        end
+
+        if group == :checking
+          next if record_exist_on_destiny?(attributes)
+        end
+
+        new_record = model.using(:destiny).create!(attributes)
 
         add(old_id, new_record.id)
       end
@@ -61,7 +61,11 @@ class Transmitter
 
   private
 
-  attr_reader :model, :table_name
+  attr_reader :model, :table_name, :group, :database
+
+  def record_exist_on_destiny?(attributes)
+    model.using(:destiny).find_by(attributes)
+  end
 
   def configure_attributes(attributes, source_record)
     attributes.each do |key, value|
@@ -79,7 +83,16 @@ class Transmitter
 
         raise "#{method} not found at #{model} #{source_record.id}" if relation.blank?
 
-        record = relation.class.unscoped.find_by(old_id: value)
+        relation_database = database
+
+        if DatabaseUpdater.models_group[:one_time].include?(relation.class)
+          relation_database = 'facieg'
+        end
+
+        record = relation.class.unscoped.find_by(
+          old_id: value,
+          database: relation_database
+        )
 
         raise "#{model} - #{relation.class} - #{key} - #{value} (old_id) not found" unless record
 
@@ -92,8 +105,8 @@ class Transmitter
 
   def add(old_id, new_id)
     ActiveRecord::Base.connection.execute <<-SQL
-      INSERT INTO #{table_name} (old_id, new_id)
-      VALUES (#{old_id}, #{new_id});
+      INSERT INTO #{table_name} (old_id, new_id, database)
+      VALUES (#{old_id}, #{new_id}, '#{database}');
     SQL
   end
 end
