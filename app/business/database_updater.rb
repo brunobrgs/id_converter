@@ -38,15 +38,19 @@ class DatabaseUpdater
     end
 
     @model_list.each do |model|
-      puts "#{model}"
-
       timer[model] = Time.current
 
-      group = models_group.key(model)
+      group = nil
+      models_group.each do |g, mods|
+        if mods.include?(model)
+          group = g
+          break
+        end
+      end
 
       # Se o grupo for 'one_time', executar apenas para a facieg
       if group != :one_time || @database == 'facieg'
-        Transmitter.start(model, group, @database, initial_id: @initial_id)
+        #Transmitter.start(model, group, @database, initial_id: @initial_id)
       end
 
       timer[model] = TimeDifference.between(
@@ -58,8 +62,6 @@ class DatabaseUpdater
     timer.each do |model, time|
       puts "#{model}: #{time} min"
     end
-
-    puts timer
 
     puts "TOTAL: #{timer.values.sum} min"
   end
