@@ -44,7 +44,10 @@ class DatabaseUpdater
 
       group = models_group.key(model)
 
-      Transmitter.start(model, group, @database, initial_id: @initial_id)
+      # Se o grupo for 'one_time', executar apenas para a facieg
+      if group != :one_time || @database == 'facieg'
+        Transmitter.start(model, group, @database, initial_id: @initial_id)
+      end
 
       timer[model] = TimeDifference.between(
         timer[model],
