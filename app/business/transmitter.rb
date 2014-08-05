@@ -66,7 +66,7 @@ class Transmitter
   attr_reader :model, :table_name, :group, :database, :initial_id
 
   def record_exist_on_destiny?(attributes)
-    if model.is_a?(User)
+    if model.to_s == 'User'
       model.using(:destiny).find_by(login: attributes['login'])
     else
       model.using(:destiny).find_by(attributes)
