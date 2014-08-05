@@ -66,7 +66,11 @@ class Transmitter
   attr_reader :model, :table_name, :group, :database, :initial_id
 
   def record_exist_on_destiny?(attributes)
-    model.using(:destiny).find_by(attributes)
+    if model.is_a?(User)
+      model.using(:destiny).find_by(login: attributes['login'])
+    else
+      model.using(:destiny).find_by(attributes)
+    end
   end
 
   def configure_attributes(attributes, source_record)
