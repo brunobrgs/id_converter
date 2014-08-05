@@ -33,7 +33,11 @@ class Transmitter
         end
 
         if group == :checking
-          next if record_exist_on_destiny?(attributes)
+          rec = record_exist_on_destiny?(attributes)
+          if rec
+            add(old_id, rec.id)
+            next
+          end
         end
 
         new_record = model.using(:destiny).create!(attributes)
