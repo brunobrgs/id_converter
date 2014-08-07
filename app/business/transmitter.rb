@@ -79,7 +79,7 @@ class Transmitter
 
   def configure_attributes(attributes, source_record)
     attributes.each do |key, value|
-      if key.include?('_id') && value.present? && key != 'hawk_id'
+      if key.include?('_id') && value.present? && key != 'hawk_id' && key != 'hawk_number_id'
         methods = model.reflect_on_all_associations(:belongs_to).
           select { |a| a.foreign_key.to_sym == key.to_sym }
 
