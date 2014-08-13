@@ -149,8 +149,8 @@ class DatabaseUpdater
       TariffMasterPrice, TariffOperator, TariffOperatorPrice, TicketType,
       TicketSubType, Ticket, Tour, TourAssociate, TourStep, TransferTitle,
       TransferTitleItem, Address, ProcessManager, Archive, ProcessFlow,
-      StockProductChosen, StockProductChosenItem, TicketFlow, LineConsumption,
-      ImportCall, Call, Comment
+      StockProductChosen, StockProductChosenItem, TicketFlow, Comment,
+      LineConsumption, ImportCall, Call
     ]
   end
 
