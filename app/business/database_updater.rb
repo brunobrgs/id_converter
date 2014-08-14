@@ -3,7 +3,7 @@ class DatabaseUpdater
     @database = database
 
     @model_list = options.delete(:models)
-    @initial_id = options.delete(:initial_id) || 0
+    @initial_id = options.delete(:initial_id) || -1
   end
 
   # DatabaseUpdater.start
@@ -88,7 +88,7 @@ class DatabaseUpdater
     {
       one_time: [
         Country, State, City, Manager, Operator, ProductFabricator, ProductModel,
-        Tariff, StockOperation, RequestType, Color, ProductLevel, 
+        Tariff, StockOperation, RequestType, Color, ProductLevel,
         ProcessType, ProcessStep, ProcessStepResponsible, TicketContactType,
         BillAdditionType, BillDiscountType, AssociateCancel, AssociateUserLine, Block,
         ChipMaintenanceType, ChipMaintenance, Contact, DistributorTarget, LineCancellation,
@@ -131,15 +131,15 @@ class DatabaseUpdater
       CommercialTable, OperatorAccount, Number, MasterOperatorContract,
       MasterManagerContract, MasterDistributorContract, RequestType, StockOperation,
       Request, Plan, Service, FacilityPackage, Color, ProductLevel, LineGroup, InternetPlan,
-      Negotiation, Sell, AssociateLine, StockProduct, ComodatoMovement, Comodato, AssociateLinePlan, 
-      AssociateLineService, DistributorPlan, DistributorService, ProcessType, 
+      Negotiation, Sell, AssociateLine, StockProduct, ComodatoMovement, Comodato, AssociateLinePlan,
+      AssociateLineService, DistributorPlan, DistributorService, ProcessType,
       ProcessStep, ProcessStepResponsible, BillPeriod, AssociateBill, LineBill,
       AssociateUser, FranchiseMovement, DistributorConfiguration, TicketContactType,
-      BillAdditionType, BillDiscountType, Bill, BillAddition, 
-      BillAdditionItem, BillDiscount, BillDiscountItem, ServiceBill, 
-      AssociateCancel, AssociateUserLine, Block, ChipMaintenanceType, 
-      ChipMaintenance, Contact, DistributorInternetPlan, DistributorTarget, 
-      Invoice, InvoiceItem, LineCancellation, LineCancellationItem, NegotiationInternet, 
+      BillAdditionType, BillDiscountType, Bill, BillAddition,
+      BillAdditionItem, BillDiscount, BillDiscountItem, ServiceBill,
+      AssociateCancel, AssociateUserLine, Block, ChipMaintenanceType,
+      ChipMaintenance, Contact, DistributorInternetPlan, DistributorTarget,
+      Invoice, InvoiceItem, LineCancellation, LineCancellationItem, NegotiationInternet,
       NegotiationProduct, NegotiationService, NumberShift, OperationControl, OperationControlService,
       PackagePrice, Permit, PlanShift, PlanShiftItem, PlanTariff, ProcessStepAction,
       ProductMatrix, RemoteRequest, Repayment, RequestItem, Role, SellInternetItem,
