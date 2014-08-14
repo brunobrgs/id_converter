@@ -5,7 +5,7 @@ class Transmitter
     @database = database
     @table_name = model.table_name
 
-    @initial_id = options.delete(:initial_id) || 0
+    @initial_id = options.delete(:initial_id) || -1
     model.connection
   end
 
@@ -18,7 +18,7 @@ class Transmitter
     last_id = initial_id
 
     begin
-      records = model.using(:source).order('id').limit(1000).where('id >= ?', last_id)
+      records = model.using(:source).order('id').limit(1000).where('id > ?', last_id)
 
       break if records.size == 0
 
