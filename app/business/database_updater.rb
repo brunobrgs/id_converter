@@ -88,7 +88,7 @@ class DatabaseUpdater
     {
       one_time: [
         Country, State, City, Manager, Operator, ProductFabricator, ProductModel,
-        Tariff, StockOperation, RequestType, Color, ProductLevel, Negotiation, Sell,
+        Tariff, StockOperation, RequestType, Color, ProductLevel, 
         ProcessType, ProcessStep, ProcessStepResponsible, TicketContactType,
         BillAdditionType, BillDiscountType, AssociateCancel, AssociateUserLine, Block,
         ChipMaintenanceType, ChipMaintenance, Contact, DistributorTarget, LineCancellation,
@@ -117,7 +117,7 @@ class DatabaseUpdater
         FranchiseMovement, DistributorConfiguration, BillAddition, BillAdditionItem,
         BillDiscount, BillDiscountItem, AssociateUser, LineGroup, DistributorInternetPlan,
         DistributorService, Ticket, TicketFlow, Comment, LineConsumption,
-        ImportCall, Call
+        ImportCall, Call, Negotiation, Sell,
       ]
     }
   end
