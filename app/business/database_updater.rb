@@ -100,24 +100,24 @@ class DatabaseUpdater
         StockMovement, StockMovementItem, ReservedProduct, ReservedProductItem,
         TariffMasterPrice, TariffOperator, TariffOperatorPrice, TicketType,
         TicketSubType, Tour, TourAssociate, TourStep, TransferTitle, TransferTitleItem,
-        ProcessManager, Archive, ProcessFlow, StockProductChosen, StockProductChosenItem
+        ProcessManager, Archive, ProcessFlow, StockProductChosen, StockProductChosenItem, ImportCall
       ],
 
       checking: [
-        Partner, Group, User, Address
+        Partner, Group, User, Address, OperatorAccount
       ],
 
       force_copy: [
         Brand, Distributor, Domain, MasterOperatorContract, MasterManagerContract,
         MasterDistributorContract, CommercialTable, Plan, PlanTariff, DistributorPlan,
-        FacilityPackage, OperatorAccount, Number, Request, RequestItem, Service,
+        FacilityPackage, Number, Request, RequestItem, Service,
         InternetPlan, Invoice, InvoiceItem, StockProduct, BillPeriod, Associate,
         AssociateLine, AssociateLinePlan, AssociateLineService, ComodatoMovement,
         Comodato, AssociateBill, LineBill, Bill, ServiceBill, Repayment,
         FranchiseMovement, DistributorConfiguration, BillAddition, BillAdditionItem,
         BillDiscount, BillDiscountItem, AssociateUser, LineGroup, DistributorInternetPlan,
         DistributorService, Ticket, TicketFlow, Comment, LineConsumption,
-        ImportCall, Call, Negotiation, Sell,
+        Call, Negotiation, Sell
       ]
     }
   end
