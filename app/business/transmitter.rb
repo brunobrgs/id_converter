@@ -18,7 +18,7 @@ class Transmitter
     last_id = initial_id
 
     begin
-      records = model.using(:source).order('id').limit(1000).where('id > ?', last_id)
+      records = model.using(:source).order('id').limit(1000).where('id >= ?', last_id)
 
       break if records.size == 0
 
