@@ -87,7 +87,7 @@ class DatabaseUpdater
   def models_group
     {
       one_time: [
-        Country, State, City, Manager, Operator, ProductFabricator, ProductModel,
+        Country, State, City, Manager, Operator, ProductFabricator, ImportCall
         Tariff, StockOperation, RequestType, Color, ProductLevel,
         ProcessType, ProcessStep, ProcessStepResponsible, TicketContactType,
         BillAdditionType, BillDiscountType, AssociateCancel, AssociateUserLine, Block,
@@ -100,11 +100,11 @@ class DatabaseUpdater
         StockMovement, StockMovementItem, ReservedProduct, ReservedProductItem,
         TariffMasterPrice, TariffOperator, TariffOperatorPrice, TicketType,
         TicketSubType, Tour, TourAssociate, TourStep, TransferTitle, TransferTitleItem,
-        ProcessManager, Archive, ProcessFlow, StockProductChosen, StockProductChosenItem, ImportCall
+        ProcessManager, Archive, ProcessFlow, StockProductChosen, StockProductChosenItem
       ],
 
       checking: [
-        Partner, Group, User, Address, OperatorAccount
+        Partner, Group, User, Address, OperatorAccount, ProductModel
       ],
 
       force_copy: [
