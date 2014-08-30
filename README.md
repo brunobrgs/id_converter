@@ -15,3 +15,9 @@ Passo a passo:
 3. `DatabaseUpdater.start` Vai criar as tabelas no banco do id_converter
 4. `DatabaseUpdater.copy('facieg')` Copia os dados do banco source para destiny e salva os ids 
 4. `DatabaseUpdater.copy_n_to_n` Copia os dados das tabelas N para N (não tem ID) 
+
+***
+
+Remover linhas em branco
+-----------
+sed -i '/^\s*$/d'
