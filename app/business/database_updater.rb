@@ -87,7 +87,7 @@ class DatabaseUpdater
   def models_group
     {
       one_time: [
-        Country, State, City, Manager, Operator, ProductFabricator, ProductModel,
+        Country, State, City, Manager, Operator, ProductFabricator,
         Tariff, StockOperation, RequestType, Color, ProductLevel,
         ProcessType, ProcessStep, ProcessStepResponsible, TicketContactType,
         BillAdditionType, BillDiscountType, AssociateCancel, AssociateUserLine, Block,
@@ -104,7 +104,7 @@ class DatabaseUpdater
       ],
 
       checking: [
-        Partner, Group, User, Address, OperatorAccount
+        Partner, Group, User, Address, OperatorAccount, ProductModel
       ],
 
       force_copy: [
