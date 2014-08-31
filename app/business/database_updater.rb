@@ -115,7 +115,7 @@ class DatabaseUpdater
         AssociateLine, AssociateLinePlan, AssociateLineService, ComodatoMovement,
         Comodato, AssociateBill, LineBill, Bill, ServiceBill, Repayment,
         FranchiseMovement, DistributorConfiguration, BillAddition, BillAdditionItem,
-        BillDiscount, BillDiscountItem, AssociateUser, LineGroup, DistributorInternetPlan,
+        BillDiscount, BillDiscountItem, AssociateUser, LineGroup,
         DistributorService, Ticket, TicketFlow, Comment, LineConsumption,
         Call, Negotiation, Sell
       ]
@@ -138,7 +138,7 @@ class DatabaseUpdater
       BillAdditionType, BillDiscountType, Bill, BillAddition,
       BillAdditionItem, BillDiscount, BillDiscountItem, ServiceBill,
       AssociateCancel, AssociateUserLine, Block, ChipMaintenanceType,
-      ChipMaintenance, Contact, DistributorInternetPlan, DistributorTarget,
+      ChipMaintenance, Contact, DistributorTarget,
       Invoice, InvoiceItem, LineCancellation, LineCancellationItem, NegotiationInternet,
       NegotiationProduct, NegotiationService, NumberShift, OperationControl, OperationControlService,
       PackagePrice, Permit, PlanShift, PlanShiftItem, PlanTariff, ProcessStepAction,
